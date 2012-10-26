@@ -9,7 +9,7 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 /*
- * This is a sample event listener
+ * Currently no events are handled by InventoryCleaner.
  */
 public class InventoryCleanerListener implements Listener {
     private final InventoryCleaner plugin;
@@ -24,26 +24,4 @@ public class InventoryCleanerListener implements Listener {
         this.plugin = plugin;
     }
 
-    /*
-     * Send the sample message to all players that join
-     */
-    @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event) {
-        event.getPlayer().sendMessage(this.plugin.getConfig().getString("sample.message"));
-    }
-    
-    /*
-     * Another example of a event handler. This one will give you the name of
-     * the entity you interact with, if it is a Creature it will give you the
-     * creature Id.
-     */
-    @EventHandler
-    public void onPlayerInteract(PlayerInteractEntityEvent event) {
-        final EntityType entityType = event.getRightClicked().getType();
-
-        event.getPlayer().sendMessage(MessageFormat.format(
-                "You interacted with a {0} it has an id of {1}",
-                entityType.getName(),
-                entityType.getTypeId()));
-    }
 }

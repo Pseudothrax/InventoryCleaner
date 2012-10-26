@@ -3,26 +3,26 @@ package edu.unca.atjones.InventoryCleaner;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /*
- * This is the main class of the sample plug-in
+ * The main plugin class..
  */
 public final class InventoryCleaner extends JavaPlugin {
     /*
-     * This is called when your plug-in is enabled
+     * Nothing here for now
      */
     @Override
     public void onEnable() {
         // save the configuration file
         saveDefaultConfig();
         
-        // Create the SampleListener
+        // Create the InventoryCleanerListener
         new InventoryCleanerListener(this);
         
         // set the command executor for sample
-        this.getCommand("sample").setExecutor(new InventoryCleanerCommandExecutor(this));
+        this.getCommand("inv").setExecutor(new InventoryCleanerCommandExecutor(this));
     }
     
     /*
-     * This is called when your plug-in shuts down
+     * Nothing here for now
      */
     @Override
     public void onDisable() {
