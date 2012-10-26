@@ -8,9 +8,16 @@ description: ${project.description}
 commands:
   inv:
     description: show the InventoryCleaner help page
-    usage: /<command>
+    usage: /<command> action
     permission: inv.help
 permissions:
-  inv.help:
-    description: gives access to the InventoryCleaner help page
-    default: false
+  inv.*:
+    description: gives access to all commands
+    default: op
+    children:
+        inv.help:
+            description: shows help
+            default: false
+        inv.clear:
+            description: clears inventory
+            default: false
