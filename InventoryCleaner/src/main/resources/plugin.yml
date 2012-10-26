@@ -6,14 +6,11 @@ version: ${project.version}
 author: SampleAuthor
 description: ${project.description}
 commands:
-  sample:
-    description: set the sample message
-    usage: /<command> message
-    permission: sample.message
+  inv:
+    description: show the InventoryCleaner help page
+    usage: /<command>
+    permission: inv.help
 permissions:
-  sample.*:
-    description: gives all permissions of the SamplePlugin
-    default: op
-    children:
-      sample.message:
-        description: gives permission to set the sample message using the sample command
+  inv.help:
+    description: gives access to the InventoryCleaner help page
+    default: false
