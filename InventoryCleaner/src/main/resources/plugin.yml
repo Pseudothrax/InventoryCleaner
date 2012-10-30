@@ -21,3 +21,9 @@ permissions:
         inv.clear:
             description: clears inventory
             default: false
+        inv.save:
+            description: saves inventory
+            default: false
+        inv.load:
+            description: loads saved inventory
+            default: false    
