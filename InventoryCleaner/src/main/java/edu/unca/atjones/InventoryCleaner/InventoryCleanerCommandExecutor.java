@@ -51,7 +51,7 @@ public class InventoryCleanerCommandExecutor implements CommandExecutor {
 	    		
 	    		HashMap<String,ItemStack[]> invCollection;
 	    		ItemStack[] newInv = p.getInventory().getContents();
-	    		
+	    		String key = (String)args[1];
 	    		
 	    		if(playerInventories.containsKey(p)) {
 	    			invCollection = playerInventories.get(p);
@@ -59,8 +59,8 @@ public class InventoryCleanerCommandExecutor implements CommandExecutor {
 	    			invCollection = new HashMap<String,ItemStack[]>();
 	    		}
 	    		
-	    		if(invCollection.size() < this.plugin.getConfig().getDouble("inv.num_saves")) {
-	    			invCollection.put(args[1], newInv);
+	    		if(invCollection.size() < this.plugin.getConfig().getInt("inv.num_saves")) {
+	    			invCollection.put(key, newInv);
 	    			playerInventories.put(p, invCollection);
 	    			p.sendMessage("Inventory Saved as " + args[1]);
 	    		} else {
@@ -70,7 +70,26 @@ public class InventoryCleanerCommandExecutor implements CommandExecutor {
 	    		return true;
 	    		
 	    	}
-
+	    	//inv load
+	    	if(p.hasPermission("inv.save") && args[0].equalsIgnoreCase("save")) {
+	    		if(args[1] == null || !(args[1] instanceof String)){ return false; }
+	    		
+	    		HashMap<String,ItemStack[]> invCollection;
+	    		
+	    		if(playerInventories.containsKey(p)) {
+	    			invCollection = playerInventories.get(p);
+	    			if(invCollection.containsKey(args[1])){
+	    				ItemStack[] loadInv = invCollection.get(args[1]);
+	    				p.getInventory().setContents(loadInv);
+	    				p.sendMessage("Inventory " + args[1] + " loaded.");
+	    			} else {
+		    			p.sendMessage("You have no saved inventory called " + args[1]);
+		    		}
+	    		} else {
+	    			p.sendMessage("You have no saved inventory called " + args[1]);
+	    		}
+	    		return true;
+	    	}
     	}
     	return false;
     }
