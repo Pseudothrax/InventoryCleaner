@@ -1,1 +1,4 @@
-#This is a sample config.yml
+#InventoryCleaner config file
+inv:
+    num_saves: 1
+    delete_on_load: yes

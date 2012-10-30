@@ -6,18 +6,38 @@ import org.bukkit.plugin.java.JavaPlugin;
  * The main plugin class..
  */
 public final class InventoryCleaner extends JavaPlugin {
-    /*
-     * Nothing here for now
-     */
+
+	InventoryCleanerLogger logger;
+	
+	private void checkConfig() {
+        if(this.getConfig().get("inv.num_saves") != null) {
+        	logger.info("save configuration loaded");
+        } else {
+        	logger.warn("save configuration not found. Setting default");
+        	this.getConfig().set("inv.num_saves", 1);
+        }
+        
+        if(this.getConfig().get("inv.delete_on_load") != null) {
+        	logger.info("delete configuration loaded");
+        } else {
+        	logger.warn("delete configuration not found. Setting default");
+        	this.getConfig().set("inv.delete_on_load", "yes");
+        }
+	}
+	
     @Override
     public void onEnable() {
         // save the configuration file
         saveDefaultConfig();
+        checkConfig();
         
-        // Create the InventoryCleanerListener
+		logger = new InventoryCleanerLogger(this);
+		logger.info("plugin enabled");
+		
+        // Create the event listener
         new InventoryCleanerListener(this);
         
-        // set the command executor for sample
+        // set the command executor
         this.getCommand("inv").setExecutor(new InventoryCleanerCommandExecutor(this));
     }
     
@@ -26,7 +46,7 @@ public final class InventoryCleaner extends JavaPlugin {
      */
     @Override
     public void onDisable() {
-        
+    	logger.info("plugin disabled");
     }
 
 }
