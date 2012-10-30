@@ -27,12 +27,13 @@ public final class InventoryCleaner extends JavaPlugin {
 	
     @Override
     public void onEnable() {
+    	
+		logger = new InventoryCleanerLogger(this);
+		logger.info("plugin enabled");
+		
         // save the configuration file
         saveDefaultConfig();
         checkConfig();
-        
-		logger = new InventoryCleanerLogger(this);
-		logger.info("plugin enabled");
 		
         // Create the event listener
         new InventoryCleanerListener(this);
