@@ -7,6 +7,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
 import com.google.common.base.Joiner;
@@ -16,7 +17,7 @@ import com.google.common.base.Joiner;
  */
 public class InventoryCleanerCommandExecutor implements CommandExecutor {
 	
-	public Map<Player, HashMap<String,PlayerInventory>> playerInventories = new HashMap<Player, HashMap<String,PlayerInventory>>();
+	public Map<Player, HashMap<String,ItemStack[]>> playerInventories = new HashMap<Player, HashMap<String,ItemStack[]>>();
 	
     private final InventoryCleaner plugin;
 
@@ -48,14 +49,14 @@ public class InventoryCleanerCommandExecutor implements CommandExecutor {
 	    		
 	    		if(args[1] == null || !(args[1] instanceof String)){ return false; }
 	    		
-	    		HashMap<String,PlayerInventory> invCollection;
-	    		PlayerInventory newInv = p.getInventory();
+	    		HashMap<String,ItemStack[]> invCollection;
+	    		ItemStack[] newInv = p.getInventory().getContents();
 	    		
 	    		
 	    		if(playerInventories.containsKey(p)) {
 	    			invCollection = playerInventories.get(p);
 	    		} else {
-	    			invCollection = new HashMap<String,PlayerInventory>();
+	    			invCollection = new HashMap<String,ItemStack[]>();
 	    		}
 	    		
 	    		if(invCollection.size() < this.plugin.getConfig().getDouble("inv.num_saves")) {
@@ -69,11 +70,7 @@ public class InventoryCleanerCommandExecutor implements CommandExecutor {
 	    		return true;
 	    		
 	    	}
-	    	//inv load
-	    	if(p.hasPermission("inv.save") && args[0].equalsIgnoreCase("save")) {
-	    		if(args[1] == null || !(args[1] instanceof String)){ return false; }
-	    		
-	    	}
+
     	}
     	return false;
     }
