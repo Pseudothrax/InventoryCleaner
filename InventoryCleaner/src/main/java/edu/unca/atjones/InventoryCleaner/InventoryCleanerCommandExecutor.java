@@ -47,11 +47,11 @@ public class InventoryCleanerCommandExecutor implements CommandExecutor {
 	    	//inv save
 	    	if(p.hasPermission("inv.save") && args[0].equalsIgnoreCase("save")) {
 	    		
-	    		if(args[1] == null || !(args[1] instanceof String)){ return false; }
+	    		if(args[1] == null){ return false; }
 	    		
 	    		HashMap<String,ItemStack[]> invCollection;
 	    		ItemStack[] newInv = p.getInventory().getContents();
-	    		String key = (String)args[1];
+	    		String key = args[1];
 	    		
 	    		if(playerInventories.containsKey(p)) {
 	    			invCollection = playerInventories.get(p);
@@ -59,7 +59,7 @@ public class InventoryCleanerCommandExecutor implements CommandExecutor {
 	    			invCollection = new HashMap<String,ItemStack[]>();
 	    		}
 	    		
-	    		if(invCollection.size() < this.plugin.getConfig().getInt("inv.num_saves")) {
+	    		if(invCollection.containsKey(key) || invCollection.size() < this.plugin.getConfig().getInt("inv.num_saves")) {
 	    			invCollection.put(key, newInv);
 	    			playerInventories.put(p, invCollection);
 	    			p.sendMessage("Inventory Saved as " + args[1]);
@@ -71,8 +71,8 @@ public class InventoryCleanerCommandExecutor implements CommandExecutor {
 	    		
 	    	}
 	    	//inv load
-	    	if(p.hasPermission("inv.save") && args[0].equalsIgnoreCase("save")) {
-	    		if(args[1] == null || !(args[1] instanceof String)){ return false; }
+	    	if(p.hasPermission("inv.load") && args[0].equalsIgnoreCase("load")) {
+	    		if(args[1] == null){ return false; }
 	    		
 	    		HashMap<String,ItemStack[]> invCollection;
 	    		
